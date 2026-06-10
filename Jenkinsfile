@@ -3,25 +3,21 @@ pipeline {
 
     stages {
 
-        stage('Pull Code') {
+        stage('Checkout Source') {
             steps {
-                sh '''
-                mkdir -p /home/ubuntu/jenkins/project
-                '''
+                checkout scm
             }
         }
 
-        stage('Show Info') {
+        stage('Copy To Folder') {
             steps {
                 sh '''
-                echo "Running on:"
-                hostname
+                mkdir -p /home/ubuntu/jenkins/project
 
-                echo "Current user:"
-                whoami
+                cp -r * /home/ubuntu/jenkins/project/
 
-                echo "Files:"
-                ls -la
+                echo "Contents of deployment folder:"
+                ls -la /home/ubuntu/jenkins/project
                 '''
             }
         }
