@@ -2,12 +2,26 @@ pipeline {
     agent { label 'slave' }
 
     stages {
-        stage('Test') {
+
+        stage('Pull Code') {
             steps {
                 sh '''
-                echo "Running on agent"
+                mkdir -p /home/ubuntu/jenkins/project
+                '''
+            }
+        }
+
+        stage('Show Info') {
+            steps {
+                sh '''
+                echo "Running on:"
                 hostname
-                pwd
+
+                echo "Current user:"
+                whoami
+
+                echo "Files:"
+                ls -la
                 '''
             }
         }
